@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration | SmartCare</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef4fb;
+            color: #263b53;
+        }
+
+        header {
+            background: #fff;
+            padding: 18px 8%;
+            box-shadow: 0 2px 10px #00000010;
+        }
+
+        header h2 {
+            margin: 0;
+            color: #1769aa;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 35px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 5px 25px #00000010;
+        }
+
+        h1 {
+            margin-top: 0;
+            text-align: center;
+            color: #1769aa;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #66758a;
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 7px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccd7e4;
+            border-radius: 7px;
+            font-size: 15px;
+            background: white;
+            font-family: Arial, sans-serif;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: 2px solid #9ac8f3;
+            border-color: #1769aa;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            background: #1769aa;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #105487;
+        }
+
+        button {
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px #1769aa25;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: #0f3f70;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px #1769aa35;
+}
+
+input, select, textarea {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    box-shadow: 0 0 0 3px #1769aa18;
+}
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #1769aa;
+            text-decoration: none;
+        }
+
+        .messages {
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #e8f5e9;
+            color: #256029;
+            border-radius: 7px;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                margin: 20px 12px;
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>SmartCare 🏥</h2>
+    </header>
+
+    <main class="container">
+        <h1>Patient Registration</h1>
+        <p class="subtitle">Register to access SmartCare services</p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="messages">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name"
+                   placeholder="Enter your full name"
+                   maxlength="100" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email"
+                   placeholder="Enter your email" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone"
+                   placeholder="Enter your phone number"
+                   pattern="[0-9]{10}" maxlength="10" required>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age"
+                   min="0" max="120"
+                   placeholder="Enter your age" required>
+
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select gender</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+
+            <label for="address">Address</label>
+            <textarea id="address" name="address"
+                      rows="2" placeholder="Enter address"
+                      required></textarea>
+
+            <label for="symptoms">Symptoms</label>
+            <textarea id="symptoms" name="symptoms"
+                      rows="3"
+                      placeholder="Enter symptoms, if any"></textarea>
+
+            <button type="submit">Register Patient</button>
+        </form>
+
+        <a class="back-link" href="/">← Back to Home</a>
+    </main>
+</body>
+</html>

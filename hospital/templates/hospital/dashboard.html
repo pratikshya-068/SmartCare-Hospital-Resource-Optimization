@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | SmartCare</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef4fb;
+            color: #263b53;
+        }
+
+        /* Professional dashboard improvements */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 3px solid #1769aa;
+}
+
+.card {
+    border: 1px solid #e3ebf5;
+    border-top: 4px solid #1769aa;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px #1769aa18;
+}
+
+.card p {
+    color: #66758a;
+    font-size: 14px;
+}
+
+.section {
+    border: 1px solid #e3ebf5;
+}
+
+tbody tr:hover {
+    background: #f3f8ff;
+}
+
+.links a {
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.links a:hover {
+    transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .number {
+        font-size: 30px;
+    }
+
+    .section {
+        padding: 16px;
+    }
+}
+
+        header {
+            background: white;
+            padding: 18px 8%;
+            box-shadow: 0 2px 10px #00000010;
+        }
+
+        header h2 {
+            margin: 0;
+            color: #1769aa;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #1769aa;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #66758a;
+            margin-bottom: 28px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 5px 25px #00000010;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #66758a;
+            font-size: 16px;
+        }
+
+        .number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #1769aa;
+            margin: 10px 0;
+        }
+
+        .section {
+            background: white;
+            margin-top: 28px;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 5px 25px #00000010;
+            overflow-x: auto;
+        }
+
+        .section h2 {
+            color: #1769aa;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            min-width: 450px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #e5ebf2;
+        }
+
+        th {
+            color: #1769aa;
+            background: #f3f7fc;
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: white;
+            background: #1769aa;
+            padding: 13px 18px;
+            border-radius: 7px;
+        }
+
+        .links a:hover {
+            background: #105487;
+        }
+
+        .empty {
+            color: #66758a;
+            padding: 18px 0;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px auto;
+                padding: 14px;
+            }
+        }
+
+        /* Colorful dashboard cards */
+.cards .card:nth-child(1) {
+    border-top: 4px solid #1769aa;
+}
+
+.cards .card:nth-child(2) {
+    border-top: 4px solid #8b5cf6;
+}
+
+.cards .card:nth-child(3) {
+    border-top: 4px solid #0d9488;
+}
+
+.cards .card:nth-child(4) {
+    border-top: 4px solid #16a34a;
+}
+
+.cards .card:nth-child(5) {
+    border-top: 4px solid #dc3545;
+}
+
+.links a {
+    display: inline-block;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px #1769aa25;
+    transition: all 0.2s ease;
+}
+
+.links a:hover {
+    background: #0f3f70;
+    box-shadow: 0 6px 16px #1769aa35;
+    transform: translateY(-3px);
+}
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>SmartCare 🏥</h2>
+    </header>
+
+    <main class="container">
+        <h1>Hospital Dashboard</h1>
+        <p class="subtitle">
+            Welcome to SmartCare Hospital Management System
+        </p>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Total Registered Patients</h3>
+                <div class="number">{{ total_patients }}</div>
+                <p>Patients in the database</p>
+            </div>
+
+            <div class="card">
+                <h3>Recent Registrations</h3>
+                <div class="number">{{ recent_patients|length }}</div>
+                <p>Latest patient records shown below</p>
+            </div>
+            <div class="card">
+    <h3>Total Beds</h3>
+    <div class="number">{{ total_beds }}</div>
+    <p>Total hospital beds</p>
+</div>
+
+<div class="card">
+    <h3>Available Beds</h3>
+    <div class="number">{{ available_beds }}</div>
+    <p>Beds available for patients</p>
+    <div style="background: #e0e0e0; border-radius: 10px; height: 10px; margin-top: 10px;">
+    <div style="background: #28a745; width: {{ available_percentage }}%; height: 10px; border-radius: 10px;"></div>
+</div>
+</div>
+
+<div class="card">
+    <h3>Occupied Beds</h3>
+    <div class="number">{{ occupied_beds }}</div>
+    <p>Beds currently occupied</p>
+    <p style="color: #dc3545; font-weight: bold; margin-top: 8px;">
+    {{ occupied_percentage }}% Occupied
+    </p>
+    <div style="background: #e0e0e0; border-radius: 10px; height: 10px; margin-top: 10px;">
+    <div style="background: #dc3545; width: {{ occupied_percentage }}%; height: 10px; border-radius: 10px;"></div>
+</div>
+</div>
+    </div>
+
+<div class="section" style="background: linear-gradient(135deg, #1769aa, #0f3f70); color: white;">
+    <h2 style="color: white;">🤖 AI Patient Flow Prediction</h2>
+    <p style="color: #e0efff;">Estimated patient count for the next day</p>
+
+    <div style="font-size: 42px; font-weight: bold; margin: 15px 0;">
+    {{ predicted_patients }}
+    patient{{ predicted_patients|pluralize }}
+</div>
+
+    <p style="color: #e0efff; margin-bottom: 0;">
+        AI-based estimate to support hospital resource planning.
+    </p>
+</div>
+
+<div class="section">
+    <h2>📊 Bed Occupancy Overview</h2>
+
+    <p>Available Beds: {{ available_beds }}</p>
+    <p>Occupied Beds: {{ occupied_beds }}</p>
+
+    <div style="display: flex; height: 30px; border-radius: 8px; overflow: hidden; background: #e9ecef;">
+        <div style="width: {{ available_percentage }}%; background: #28a745; transition: width 0.5s;"></div>
+        <div style="width: {{ occupied_percentage }}%; background: #dc3545; transition: width 0.5s;"></div>
+    </div>
+
+    <p style="font-size: 13px; color: #666; margin-top: 10px;">
+        🟢 Available Beds &nbsp;&nbsp; 🔴 Occupied Beds
+    </p>
+</div>
+
+<div class="section">
+    <h2>🥧 Bed Availability Pie Chart</h2>
+
+    <div style="display: flex; justify-content: center; margin: 20px 0;">
+        <div style="
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #28a745 0% {{ available_percentage }}%,
+                #dc3545 {{ available_percentage }}% 100%
+            );
+        "></div>
+    </div>
+
+    <p style="text-align: center;">
+        🟢 Available: {{ available_beds }}
+        &nbsp;&nbsp;
+        🔴 Occupied: {{ occupied_beds }}
+    </p>
+</div>
+
+        <div class="section">
+            <h2>Recent Patient Registrations</h2>
+
+            {% if recent_patients %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Patient Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for patient in recent_patients %}
+                            <tr>
+                                <td>{{ patient.id }}</td>
+                                <td>{{ patient.patient_name }}</td>
+                                <td>{{ patient.age }}</td>
+                                <td>{{ patient.gender }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="empty">No patient registrations yet.</p>
+            {% endif %}
+        </div>
+
+        <div class="links">
+            <a href="/">Home</a>
+            <a href="/register/">Register Patient</a>
+            <a href="/patients/">View All Patients</a>
+        </div>
+    </main>
+</body>
+</html>

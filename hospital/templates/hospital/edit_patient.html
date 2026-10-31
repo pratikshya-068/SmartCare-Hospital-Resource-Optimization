@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Patient | SmartCare</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef4fb;
+            color: #263b53;
+        }
+
+        header {
+            background: white;
+            padding: 18px 8%;
+            box-shadow: 0 2px 10px #00000010;
+        }
+
+        header h2 {
+            margin: 0;
+            color: #1769aa;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 35px auto;
+            padding: 25px;
+        }
+
+        .form-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px #00000010;
+        }
+
+        h1 {
+            color: #1769aa;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 22px;
+            padding: 12px 20px;
+            background: #1769aa;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 18px;
+            color: #1769aa;
+            text-decoration: none;
+        }
+
+        .message {
+            padding: 10px;
+            background: #fee2e2;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        /* Professional Edit Patient form styling */
+.form-box {
+    border: 1px solid #e3ebf5;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px #1769aa12;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+input, select, textarea {
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #1769aa;
+    box-shadow: 0 0 0 3px #1769aa18;
+}
+
+button {
+    font-weight: bold;
+    border-radius: 9px;
+    box-shadow: 0 4px 12px #1769aa25;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: #0f3f70;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px #1769aa35;
+}
+
+.back-link {
+    font-weight: bold;
+}
+
+.back-link:hover {
+    color: #0f3f70;
+    text-decoration: underline;
+}
+
+.message {
+    border-left: 4px solid #dc2626;
+}
+
+@media (max-width: 600px) {
+    .container {
+        margin: 18px auto;
+        padding: 14px;
+    }
+
+    .form-box {
+        padding: 18px;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>SmartCare 🏥</h2>
+    </header>
+
+    <main class="container">
+        <h1>Edit Patient</h1>
+        <p>Update the registered patient's information.</p>
+
+        <div class="form-box">
+
+            {% for message in messages %}
+                <p class="message">{{ message }}</p>
+            {% endfor %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <label>Patient Name</label>
+                <input type="text" name="name"
+                       value="{{ patient.patient_name }}" required>
+
+                <label>Email</label>
+                <input type="email" name="email"
+                       value="{{ patient.email }}" required>
+
+                <label>Age</label>
+                <input type="number" name="age"
+                       value="{{ patient.age }}" required min="1">
+
+                <label>Gender</label>
+                <select name="gender" required>
+                    <option value="Male"
+                        {% if patient.gender == "Male" %}selected{% endif %}>
+                        Male
+                    </option>
+                    <option value="Female"
+                        {% if patient.gender == "Female" %}selected{% endif %}>
+                        Female
+                    </option>
+                    <option value="Other"
+                        {% if patient.gender == "Other" %}selected{% endif %}>
+                        Other
+                    </option>
+                </select>
+
+                <label>Phone</label>
+                <input type="text" name="phone"
+                       value="{{ patient.phone }}" required>
+
+                <label>Address</label>
+                <textarea name="address" rows="3" required>{{ patient.address }}</textarea>
+
+                <label>Symptoms</label>
+                <textarea name="symptoms" rows="3">{{ patient.symptoms|default_if_none:"" }}</textarea>
+
+                <button type="submit">Update Patient</button>
+            </form>
+
+            <a class="back-link" href="{% url 'patient_records' %}">
+                ← Back to Patient Records
+            </a>
+        </div>
+    </main>
+</body>
+</html>
